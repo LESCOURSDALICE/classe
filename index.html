@@ -1,272 +1,328 @@
 <!DOCTYPE html> 
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="https://i.ibb.co/HfV1xJDW/Design-sans-titre-3.png" type="image/png">
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
-    <title>AUX COURS PIETRINI</title>
-    <style>
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="https://i.ibb.co/HfV1xJDW/Design-sans-titre-3.png" type="image/png">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+  <title>AUX COURS PIETRINI</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-body {
-  font-family: 'Bebas Neue', sans-serif;
-  background: #f5f5f5;
-  color: #333;
-  line-height: 1.6;
-}
+    body {
+      font-family: 'Bebas Neue', sans-serif;
+      background: #f5f5f5;
+      color: #333;
+      line-height: 1.6;
+    }
 
-/* Header / Navbar */
-.header {
-  width: 100%;
-  background: #fff;
-  padding: 25px 70px; 
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 999;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-}
+    .header {
+      width: 100%;
+      background: #fff;
+      padding: 25px 70px; 
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 999;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+    }
 
-.nav {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
+    .nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
 
-.logo {
-  font-size: 40px; 
-  font-weight: bold;
-  color: #222;
-  text-decoration: none;
-  letter-spacing: 3px;
-}
+    .logo {
+      font-size: 40px; 
+      font-weight: bold;
+      color: #222;
+      text-decoration: none;
+      letter-spacing: 3px;
+    }
 
-.nav-links {
-  list-style: none;
-  display: flex;
-  gap: 50px; 
-}
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 50px;
+      background: #f8f8f8;
+      padding: 20px 45px;
+      border-radius: 50px;
+      box-shadow: inset 0 2px 6px rgba(0,0,0,0.15), 0 4px 12px rgba(0,0,0,0.1);
+      border: 1px solid #e0e0e0;
+    }
 
-.nav-links li a {
-  color: #333;
-  text-decoration: none;
-  font-size: 26px; 
-  transition: color 0.3s ease;
-}
+    .nav-links li a {
+      color: #333;
+      text-decoration: none;
+      font-size: 26px; 
+      transition: color 0.3s ease;
+    }
 
-.nav-links li a:hover {
-  color: #007BFF; 
-}
+    .nav-links li a:hover {
+      color: #007BFF; 
+    }
 
-.nav-right {
-  display: flex;
-  align-items: center;
-}
+    .nav-right {
+      display: flex;
+      align-items: center;
+    }
 
-.search-container {
-  position: relative;
-  display: flex;
-  align-items: center;
-  background: #f0f0f0;
-  border-radius: 40px;
-  padding: 10px 18px;
-}
+    .search-container {
+      position: relative;
+      display: flex;
+      align-items: center;
+      background: #f0f0f0;
+      border-radius: 40px;
+      padding: 10px 18px;
+    }
 
-.search-icon {
-  flex-shrink: 0;
-  fill: #666;
-}
+    .search-icon {
+      flex-shrink: 0;
+      fill: #666;
+    }
 
-#search-input {
-  background: transparent;
-  border: none;
-  outline: none;
-  color: #333;
-  padding-left: 12px;
-  font-size: 18px;
-  width: 260px;
-}
+    #search-input {
+      background: transparent;
+      border: none;
+      outline: none;
+      color: #333;
+      padding-left: 12px;
+      font-size: 18px;
+      width: 260px;
+    }
 
-#search-input::placeholder {
-  color: #888;
-}
+    #search-input::placeholder {
+      color: #888;
+    }
 
-.suggestions {
-  position: absolute;
-  top: 50px;
-  left: 0;
-  background: #fff;
-  width: 100%;
-  max-height: 250px;
-  overflow-y: auto;
-  border-radius: 10px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-  display: none;
-}
+    .suggestions {
+      position: absolute;
+      top: 50px;
+      left: 0;
+      background: #fff;
+      width: 100%;
+      max-height: 250px;
+      overflow-y: auto;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      display: none;
+    }
 
-.suggestions div {
-  padding: 14px;
-  cursor: pointer;
-  font-size: 18px;
-}
+    .suggestions div {
+      padding: 14px;
+      cursor: pointer;
+      font-size: 18px;
+    }
 
-.suggestions div:hover {
-  background: #f0f0f0;
-}
+    .suggestions div:hover {
+      background: #f0f0f0;
+    }
 
-.logo img {
-  height: 90px;   
-  width: auto;    
-  display: block;
-}
+    .logo img {
+      height: 90px;   
+      width: auto;    
+      display: block;
+    }
 
-.main-title {
-  text-align: center;
-  margin-top: 180px; 
-  font-size: 60px;
-  letter-spacing: 4px;
-  color: #111;
-}
+    .main-title {
+      text-align: center;
+      margin-top: 180px; 
+      font-size: 60px;
+      letter-spacing: 4px;
+      color: #111;
+      opacity: 0;
+      transform: translateY(50px);
+      transition: opacity 1s ease, transform 1s ease;
+    }
 
-.section {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 50px;
-  margin: 80px auto;
-  max-width: 1100px;
-  padding: 20px;
-}
+    .main-title.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
 
-.section img {
-  width: 45%;
-  height: 400px;
-  object-fit: cover;
-  border-radius: 12px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.15);
-}
+    .section {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 50px;
+      margin: 80px auto;
+      max-width: 1100px;
+      padding: 20px;
 
-.section-text {
-  width: 50%;
-  font-size: 22px;
-  text-align: justify;
-}
+      opacity: 0;
+      transform: translateY(80px);
+      transition: opacity 1s ease, transform 1s ease;
+    }
 
-.contact {
-  text-align: center;
-  margin: 100px 0;
-}
+    .section.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
 
-.contact h2 {
-  font-size: 36px;
-  margin-bottom: 20px;
-}
+    .section img {
+      width: 45%;
+      height: 400px;
+      object-fit: cover;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+    }
 
-.contact a {
-  font-size: 24px;
-  color: #007BFF;
-  text-decoration: none;
-}
+    .section-text {
+      width: 50%;
+      font-size: 22px;
+      text-align: justify;
+    }
 
-.contact a:hover {
-  text-decoration: underline;
-}
+    .contact {
+      text-align: center;
+      margin: 100px 0;
+      opacity: 0;
+      transform: translateY(80px);
+      transition: opacity 1s ease, transform 1s ease;
+    }
 
-.footer {
-  background: #222;
-  color: #fff;
-  padding: 60px 40px;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 40px;
-}
+    .contact.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
 
-.footer h3 {
-  font-size: 24px;
-  margin-bottom: 20px;
-}
+    .contact h2 {
+      font-size: 36px;
+      margin-bottom: 20px;
+    }
 
-.footer ul {
-  list-style: none;
-  padding: 0;
-}
+    .contact a {
+      font-size: 24px;
+      color: #007BFF;
+      text-decoration: none;
+    }
 
-.footer ul li {
-  margin-bottom: 12px;
-}
+    .contact a:hover {
+      text-decoration: underline;
+    }
 
-.footer ul li a {
-  color: #bbb;
-  text-decoration: none;
-  font-size: 18px;
-}
+    .footer {
+      background: #222;
+      color: #fff;
+      padding: 60px 40px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 40px;
+      opacity: 0;
+      transform: translateY(80px);
+      transition: opacity 1s ease, transform 1s ease;
+    }
 
-.footer ul li a:hover {
-  color: #fff;
-}
+    .footer.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
 
-.footer .bottom {
-  grid-column: 1/-1;
-  text-align: center;
-  margin-top: 40px;
-  font-size: 16px;
-  color: #aaa;
-}
-    </style>
+    .footer h3 {
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+
+    .footer ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .footer ul li {
+      margin-bottom: 12px;
+    }
+
+    .footer ul li a {
+      color: #bbb;
+      text-decoration: none;
+      font-size: 18px;
+    }
+
+    .footer ul li a:hover {
+      color: #fff;
+    }
+
+    .footer .bottom {
+      grid-column: 1/-1;
+      text-align: center;
+      margin-top: 40px;
+      font-size: 16px;
+      color: #aaa;
+    }
+  </style>
 </head>
 <body>
 
-    <header class="header" id="header">
-        <nav class="nav">
-            <a href="#accueil" class="logo">
-                <img src="https://static.wixstatic.com/media/8fe01d_0335a2e73f204073b35229a92d751359~mv2.png/v1/crop/x_0,y_203,w_1024,h_617/fill/w_198,h_114,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/ChatGPT%20Image%203%20avr_%202025%20%C3%A0%2022_06_52.png" 
-                     alt="Logo">
-            </a>
-            <ul class="nav-links">
-                <li><a href="#accueil">Accueil</a></li>
-				<li><a href="#seconde">Seconde</a></li>
-                <li><a href="#premiere">Première</a></li>
-                <li><a href="#terminale">Terminale</a></li>
-                <li><a href="https://netfloxxx.github.io/site/canal">Outils</a></li>
-            </ul>
-            <div class="nav-right">
-                <div class="search-container">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="search-icon" width="22" height="22" fill="white" viewBox="0 0 24 24">
-                        <path d="M21.53 20.47l-4.7-4.7a8 8 0 10-1.06 1.06l4.7 4.7a.75.75 0 101.06-1.06zM4 10a6 6 0 1112 0A6 6 0 014 10z"/>
-                    </svg>
-                    <input type="text" id="search-input" placeholder="Rechercher..." autocomplete="off" />
-                    <div class="suggestions" id="suggestions"></div>
-                </div>
-            </div>
-        </nav>
-    </header>
-
-    <h1 class="main-title">AUX COURS PIETRINI</h1>
-
-    <section class="section">
-        <img src="https://static.wixstatic.com/media/11062b_5a858ea3bde1414ab6ab3c958060acd1f000.jpg/v1/fill/w_521,h_1080,al_c,q_85,usm_0.33_1.00_0.00,enc_avif,quality_auto/11062b_5a858ea3bde1414ab6ab3c958060acd1f000.jpg" alt="Cours illustration">
-        <div class="section-text">
-            Ce site est conçu spécialement pour aider les élèves dans leurs révisions. 
-            Ici, vous trouverez des schémas clairs et des fiches de définitions pour faciliter votre apprentissage. 
-            Mon objectif est de rendre vos études plus efficaces et accessibles.
+  <header class="header" id="header">
+    <nav class="nav">
+      <a href="#accueil" class="logo">
+        <img src="https://static.wixstatic.com/media/8fe01d_0335a2e73f204073b35229a92d751359~mv2.png/v1/crop/x_0,y_203,w_1024,h_617/fill/w_198,h_114,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/ChatGPT%20Image%203%20avr_%202025%20%C3%A0%2022_06_52.png" 
+             alt="Logo">
+      </a>
+      <ul class="nav-links">
+        <li><a href="#accueil">Accueil</a></li>
+        <li><a href="#seconde">Seconde</a></li>
+        <li><a href="#premiere">Première</a></li>
+        <li><a href="#terminale">Terminale</a></li>
+        <li><a href="https://netfloxxx.github.io/site/canal">Outils</a></li>
+      </ul>
+      <div class="nav-right">
+        <div class="search-container">
+          <svg xmlns="http://www.w3.org/2000/svg" class="search-icon" width="22" height="22" fill="white" viewBox="0 0 24 24">
+            <path d="M21.53 20.47l-4.7-4.7a8 8 0 10-1.06 1.06l4.7 4.7a.75.75 0 101.06-1.06zM4 10a6 6 0 1112 0A6 6 0 014 10z"/>
+          </svg>
+          <input type="text" id="search-input" placeholder="Rechercher..." autocomplete="off" />
+          <div class="suggestions" id="suggestions"></div>
         </div>
-    </section>
+      </div>
+    </nav>
+  </header>
 
-    <section class="contact">
-        <h2>Une question ? Écrivez-moi</h2>
-        <a href="mailto:auxcourspietrini@outlook.com">auxcourspietrini@outlook.com</a>
-    </section>
+  <h1 class="main-title">AUX COURS PIETRINI</h1>
 
-    <footer class="footer">
-        <div class="bottom">
-            © 2025 AUX COURS PIETRINI — Tous droits réservés.
-        </div>
-    </footer>
+  <section class="section">
+    <img src="https://static.wixstatic.com/media/11062b_5a858ea3bde1414ab6ab3c958060acd1f000.jpg/v1/fill/w_521,h_1080,al_c,q_85,usm_0.33_1.00_0.00,enc_avif,quality_auto/11062b_5a858ea3bde1414ab6ab3c958060acd1f000.jpg" alt="Cours illustration">
+    <div class="section-text">
+      Ce site est conçu spécialement pour aider les élèves dans leurs révisions. 
+      Ici, vous trouverez des schémas clairs et des fiches de définitions pour faciliter votre apprentissage. 
+      Mon objectif est de rendre vos études plus efficaces et accessibles.
+    </div>
+  </section>
 
+  <section class="contact">
+    <h2>Une question ? Écrivez-moi</h2>
+    <a href="mailto:auxcourspietrini@outlook.com">auxcourspietrini@outlook.com</a>
+  </section>
+
+  <footer class="footer">
+    <div class="bottom">
+      © 2025 AUX COURS PIETRINI — Tous droits réservés.
+    </div>
+  </footer>
+
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("show");
+        } else {
+          entry.target.classList.remove("show");
+        }
+      });
+    }, { threshold: 0.36 });
+
+    document.querySelectorAll(".section, .contact, .footer, .main-title").forEach(el => observer.observe(el));
+
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        document.querySelector('.main-title').classList.add('show');
+      }, 500);
+    });
+  </script>
 </body>
 </html>
