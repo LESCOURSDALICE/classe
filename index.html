@@ -53,18 +53,88 @@
       padding: 20px 45px;
       border-radius: 50px;
       box-shadow: inset 0 2px 6px rgba(0,0,0,0.15), 0 4px 12px rgba(0,0,0,0.1);
-      border: 1px solid #e0e0e0;
+      border: 3px solid #333;
+    }
+
+    .nav-links li {
+      position: relative;
+    }
+
+    .nav-links li::after {
+      content: '';
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      height: 25px;
+      background: transparent;
+      display: none;
+    }
+
+    .nav-links li:hover::after {
+      display: block;
     }
 
     .nav-links li a {
       color: #333;
       text-decoration: none;
-      font-size: 26px; 
+      font-size: 24px; 
       transition: color 0.3s ease;
     }
 
     .nav-links li a:hover {
       color: #007BFF; 
+    }
+
+    .dropdown-menu {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      margin-top: -5px;
+      padding-top: 25px;
+      min-width: 380px;
+      z-index: 1000;
+    }
+
+    .dropdown-content {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+      max-height: 350px;
+      overflow-y: auto;
+      padding: 10px 0;
+    }
+
+    .nav-links li:hover .dropdown-menu,
+    .dropdown-menu:hover {
+      display: block;
+    }
+
+    .dropdown-menu a {
+      display: block;
+      padding: 12px 25px;
+      font-size: 18px;
+      color: #333;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      border-left: 3px solid transparent;
+      background: #fff;
+    }
+
+    .dropdown-menu a:first-child {
+      border-radius: 12px 12px 0 0;
+    }
+
+    .dropdown-menu a:last-child {
+      border-radius: 0 0 12px 12px;
+    }
+
+    .dropdown-menu a:hover {
+      background: #f8f8f8;
+      color: #007BFF;
+      border-left-color: #007BFF;
+      padding-left: 30px;
     }
 
     .nav-right {
@@ -78,7 +148,9 @@
       align-items: center;
       background: #f0f0f0;
       border-radius: 40px;
-      padding: 10px 18px;
+      padding: 16px 18px;
+      border: 3px solid #333;
+      margin-left: 30px;
     }
 
     .search-icon {
@@ -153,7 +225,6 @@
       margin: 80px auto;
       max-width: 1100px;
       padding: 20px;
-
       opacity: 0;
       transform: translateY(80px);
       transition: opacity 1s ease, transform 1s ease;
@@ -260,16 +331,43 @@
 
   <header class="header" id="header">
     <nav class="nav">
-      <a href="#accueil" class="logo">
+      <a href="https://lescoursdalice.github.io/classe" class="logo">
         <img src="https://static.wixstatic.com/media/8fe01d_0335a2e73f204073b35229a92d751359~mv2.png/v1/crop/x_0,y_203,w_1024,h_617/fill/w_198,h_114,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/ChatGPT%20Image%203%20avr_%202025%20%C3%A0%2022_06_52.png" 
              alt="Logo">
       </a>
       <ul class="nav-links">
-        <li><a href="#accueil">Accueil</a></li>
+        <li><a href="https://lescoursdalice.github.io/classe">Accueil</a></li>
         <li><a href="#seconde">Seconde</a></li>
         <li><a href="#premiere">Première</a></li>
-        <li><a href="#terminale">Terminale</a></li>
-        <li><a href="https://netfloxxx.github.io/site/canal">Outils</a></li>
+        <li>
+          <a href="#terminale">Terminale</a>
+          <div class="dropdown-menu">
+            <div class="dropdown-content">
+              <a href="#chapitre-e1">Chapitre E1 : Croissance économique</a>
+              <a href="#chapitre-e2">Chapitre E2 : Commerce international</a>
+              <a href="#chapitre-e3">Chapitre E3 : Lutter contre le chômage</a>
+              <a href="#chapitre-e4">Chapitre E4 : Crises financières</a>
+              <a href="#chapitre-e5">Chapitre E5 : Politiques européennes</a>
+              <a href="#chapitre-s1">Chapitre S1 : Structure sociale</a>
+            </div>
+          </div>
+        </li>
+        <li>
+          <a href="#outils">Outils</a>
+          <div class="dropdown-menu">
+            <div class="dropdown-content">
+              <a href="#pourcentage-repartition">Pourcentage de répartition</a>
+              <a href="#coefficient-multiplicateur">Coefficient multiplicateur</a>
+              <a href="#taux-variation">Taux de variation</a>
+              <a href="#differences-point-pourcentage">Différences en point de pourcentage</a>
+              <a href="#valeur-nominale-reelle">Valeur nominale/réelle</a>
+              <a href="#mediane-quantile">Médiane et quantile</a>
+              <a href="#epreuve-composee">Épreuve composée</a>
+              <a href="#dissertation">Dissertation</a>
+              <a href="#grand-oral">Grand oral</a>
+            </div>
+          </div>
+        </li>
       </ul>
       <div class="nav-right">
         <div class="search-container">
@@ -314,7 +412,7 @@
           entry.target.classList.remove("show");
         }
       });
-    }, { threshold: 0.36 });
+    }, { threshold: 0.2 });
 
     document.querySelectorAll(".section, .contact, .footer, .main-title").forEach(el => observer.observe(el));
 
