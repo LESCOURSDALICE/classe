@@ -1,0 +1,603 @@
+<!DOCTYPE html> 
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="https://i.ibb.co/HfV1xJDW/Design-sans-titre-3.png" type="image/png">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+  <title>Chapitre E2 - AUX COURS PIETRINI</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Bebas Neue', sans-serif;
+      background: #f5f5f5;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    .header {
+      width: 100%;
+      background: #fff;
+      padding: 25px 70px; 
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 999;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+    }
+
+    .nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 40px; 
+      font-weight: bold;
+      color: #222;
+      text-decoration: none;
+      letter-spacing: 3px;
+    }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 50px;
+      background: #f8f8f8;
+      padding: 20px 45px;
+      border-radius: 50px;
+      box-shadow: inset 0 2px 6px rgba(0,0,0,0.15), 0 4px 12px rgba(0,0,0,0.1);
+      border: 3px solid #333;
+    }
+
+    .nav-links li {
+      position: relative;
+    }
+
+    .nav-links li::after {
+      content: '';
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      height: 25px;
+      background: transparent;
+      display: none;
+    }
+
+    .nav-links li:hover::after {
+      display: block;
+    }
+
+    .nav-links li a {
+      color: #333;
+      text-decoration: none;
+      font-size: 24px; 
+      transition: color 0.3s ease;
+    }
+
+    .nav-links li a:hover {
+      color: #007BFF; 
+    }
+
+    .dropdown-menu {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      margin-top: -5px;
+      padding-top: 25px;
+      min-width: 380px;
+      z-index: 1000;
+    }
+
+    .dropdown-content {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+      max-height: 350px;
+      overflow-y: auto;
+      padding: 10px 0;
+    }
+
+    .nav-links li:hover .dropdown-menu,
+    .dropdown-menu:hover {
+      display: block;
+    }
+
+    .dropdown-menu a {
+      display: block;
+      padding: 12px 25px;
+      font-size: 18px;
+      color: #333;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      border-left: 3px solid transparent;
+      background: #fff;
+    }
+
+    .dropdown-menu a:first-child {
+      border-radius: 12px 12px 0 0;
+    }
+
+    .dropdown-menu a:last-child {
+      border-radius: 0 0 12px 12px;
+    }
+
+    .dropdown-menu a:hover {
+      background: #f8f8f8;
+      color: #007BFF;
+      border-left-color: #007BFF;
+      padding-left: 30px;
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+    }
+
+    .search-container {
+      position: relative;
+      display: flex;
+      align-items: center;
+      background: #f0f0f0;
+      border-radius: 40px;
+      padding: 10px 18px;
+      border: 3px solid #333;
+    }
+
+    .search-icon {
+      flex-shrink: 0;
+      fill: #666;
+    }
+
+    #search-input {
+      background: transparent;
+      border: none;
+      outline: none;
+      color: #333;
+      padding-left: 12px;
+      font-size: 18px;
+      width: 260px;
+    }
+
+    #search-input::placeholder {
+      color: #888;
+    }
+
+    .suggestions {
+      position: absolute;
+      top: 50px;
+      left: 0;
+      background: #fff;
+      width: 100%;
+      max-height: 250px;
+      overflow-y: auto;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      display: none;
+    }
+
+    .suggestions div {
+      padding: 14px;
+      cursor: pointer;
+      font-size: 18px;
+    }
+
+    .suggestions div:hover {
+      background: #f0f0f0;
+    }
+
+    .logo img {
+      height: 90px;   
+      width: auto;    
+      display: block;
+    }
+
+    .main-title {
+      text-align: center;
+      margin-top: 180px; 
+      font-size: 48px;
+      letter-spacing: 3px;
+      color: #111;
+      opacity: 0;
+      transform: translateY(50px);
+      transition: opacity 1s ease, transform 1s ease;
+      max-width: 1100px;
+      margin-left: auto;
+      margin-right: auto;
+      padding: 0 20px;
+    }
+
+    .main-title.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .objectives {
+      max-width: 1100px;
+      margin: 60px auto;
+      padding: 20px;
+      opacity: 0;
+      transform: translateY(80px);
+      transition: opacity 1s ease, transform 1s ease;
+    }
+
+    .objectives.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .objectives h2 {
+      font-size: 36px;
+      margin-bottom: 20px;
+      color: #111;
+    }
+
+    .objectives p {
+      font-size: 20px;
+      text-align: justify;
+      margin-bottom: 15px;
+      line-height: 1.8;
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: 42px;
+      margin: 80px 0 50px;
+      color: #111;
+      opacity: 0;
+      transform: translateY(80px);
+      transition: opacity 1s ease, transform 1s ease;
+    }
+
+    .section-title.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .cards-container {
+      max-width: 1100px;
+      margin: 0 auto 80px;
+      padding: 20px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 30px;
+      opacity: 0;
+      transform: translateY(80px);
+      transition: opacity 1s ease, transform 1s ease;
+    }
+
+    .cards-container.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .card {
+      background: #fff;
+      border-radius: 12px;
+      padding: 30px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      transition: all 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    }
+
+    .card-number {
+      font-size: 48px;
+      color: #007BFF;
+      margin-bottom: 20px;
+      font-weight: bold;
+    }
+
+    .card h3 {
+      font-size: 28px;
+      margin-bottom: 15px;
+      color: #111;
+    }
+
+    .card p {
+      font-size: 18px;
+      line-height: 1.6;
+      margin-bottom: 25px;
+      flex-grow: 1;
+    }
+
+    .card-button {
+      background: linear-gradient(135deg, #007BFF 0%, #0056b3 100%);
+      color: #fff;
+      padding: 12px 30px;
+      font-size: 20px;
+      text-decoration: none;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 10px rgba(0,123,255,0.3);
+      border: 2px solid transparent;
+    }
+
+    .card-button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(0,123,255,0.5);
+      border-color: #007BFF;
+      background: linear-gradient(135deg, #0056b3 0%, #003d82 100%);
+    }
+
+    .bac-section {
+      max-width: 1100px;
+      margin: 80px auto;
+      padding: 40px;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      text-align: center;
+      opacity: 0;
+      transform: translateY(80px);
+      transition: opacity 1s ease, transform 1s ease;
+    }
+
+    .bac-section.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .bac-section h2 {
+      font-size: 36px;
+      margin-bottom: 20px;
+      color: #111;
+    }
+
+    .bac-section p {
+      font-size: 20px;
+      margin-bottom: 30px;
+      line-height: 1.8;
+    }
+
+    .bac-button {
+      background: linear-gradient(135deg, #dc3545 0%, #a71d2a 100%);
+      color: #fff;
+      padding: 15px 40px;
+      font-size: 24px;
+      text-decoration: none;
+      border-radius: 10px;
+      display: inline-block;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(220,53,69,0.3);
+      border: 3px solid transparent;
+    }
+
+    .bac-button:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(220,53,69,0.5);
+      border-color: #fff;
+      background: linear-gradient(135deg, #a71d2a 0%, #7a1520 100%);
+    }
+
+    .contact {
+      text-align: center;
+      margin: 100px 0;
+      opacity: 0;
+      transform: translateY(80px);
+      transition: opacity 1s ease, transform 1s ease;
+    }
+
+    .contact.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .contact h2 {
+      font-size: 36px;
+      margin-bottom: 20px;
+    }
+
+    .contact a {
+      font-size: 24px;
+      color: #007BFF;
+      text-decoration: none;
+    }
+
+    .contact a:hover {
+      text-decoration: underline;
+    }
+
+    .footer {
+      background: #222;
+      color: #fff;
+      padding: 60px 40px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 40px;
+      opacity: 0;
+      transform: translateY(80px);
+      transition: opacity 1s ease, transform 1s ease;
+    }
+
+    .footer.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .footer h3 {
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+
+    .footer ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .footer ul li {
+      margin-bottom: 12px;
+    }
+
+    .footer ul li a {
+      color: #bbb;
+      text-decoration: none;
+      font-size: 18px;
+    }
+
+    .footer ul li a:hover {
+      color: #fff;
+    }
+
+    .footer .bottom {
+      grid-column: 1/-1;
+      text-align: center;
+      margin-top: 40px;
+      font-size: 16px;
+      color: #aaa;
+    }
+
+    @media (max-width: 900px) {
+      .cards-container {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="header" id="header">
+    <nav class="nav">
+      <a href="https://lescoursdalice.github.io/classe/" class="logo">
+        <img src="https://static.wixstatic.com/media/8fe01d_0335a2e73f204073b35229a92d751359~mv2.png/v1/crop/x_0,y_203,w_1024,h_617/fill/w_198,h_114,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/ChatGPT%20Image%203%20avr_%202025%20%C3%A0%2022_06_52.png" 
+             alt="Logo">
+      </a>
+      <ul class="nav-links">
+        <li><a href="https://lescoursdalice.github.io/classe/">Accueil</a></li>
+        <li><a href="#seconde">Seconde</a></li>
+        <li><a href="#premiere">Première</a></li>
+        <li>
+          <a href="https://lescoursdalice.github.io/classe/terminale">Terminale</a>
+          <div class="dropdown-menu">
+            <div class="dropdown-content">
+              <a href="https://lescoursdalice.github.io/classe/term-e1">Chapitre E1 : Croissance économique</a>
+              <a href="https://lescoursdalice.github.io/classe/term-e2">Chapitre E2 : Commerce international</a>
+              <a href="https://lescoursdalice.github.io/classe/term-e3">Chapitre E3 : Lutter contre le chômage</a>
+              <a href="https://lescoursdalice.github.io/classe/term-e4">Chapitre E4 : Crises financières</a>
+              <a href="https://lescoursdalice.github.io/classe/term-e5">Chapitre E5 : Politiques européennes</a>
+              <a href="https://lescoursdalice.github.io/classe/term-s1">Chapitre S1 : Structure sociale</a>
+            </div>
+          </div>
+        </li>
+        <li>
+          <a href="https://lescoursdalice.github.io/classe/outils">Outils</a>
+          <div class="dropdown-menu">
+            <div class="dropdown-content">
+              <a href="#pourcentage-repartition">Pourcentage de répartition</a>
+              <a href="#coefficient-multiplicateur">Coefficient multiplicateur</a>
+              <a href="#taux-variation">Taux de variation</a>
+              <a href="#differences-point-pourcentage">Différences en point de pourcentage</a>
+              <a href="#valeur-nominale-reelle">Valeur nominale/réelle</a>
+              <a href="#mediane-quantile">Médiane et quantile</a>
+              <a href="#epreuve-composee">Épreuve composée</a>
+              <a href="#dissertation">Dissertation</a>
+              <a href="#grand-oral">Grand oral</a>
+            </div>
+          </div>
+        </li>
+      </ul>
+      <div class="nav-right">
+        <div class="search-container">
+          <svg xmlns="http://www.w3.org/2000/svg" class="search-icon" width="22" height="22" fill="white" viewBox="0 0 24 24">
+            <path d="M21.53 20.47l-4.7-4.7a8 8 0 10-1.06 1.06l4.7 4.7a.75.75 0 101.06-1.06zM4 10a6 6 0 1112 0A6 6 0 014 10z"/>
+          </svg>
+          <input type="text" id="search-input" placeholder="Rechercher..." autocomplete="off" />
+          <div class="suggestions" id="suggestions"></div>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <h1 class="main-title">Chapitre E2 : Quels sont les fondements du commerce international et de l'internationalisation de la production ?</h1>
+<div class="objectives">
+  <div style="text-align:center; margin-bottom:15px;">
+    <img src="https://www.smartprof.ma/wp-content/uploads/2024/06/image-2-1024x683.png" 
+         alt="Apprendre économie" 
+         style="max-width:80%; height:auto; border-radius:8px;">
+  </div>
+  <h2 style="text-align:center; font-size:36px; margin-bottom:20px;">Objectifs d’apprentissage :</h2>
+  <p>- Comprendre le rôle des dotations factorielles et technologiques (avantages comparatifs) dans les échanges commerciaux et la spécialisation internationale.</p>
+  <p>- Comprendre le commerce entre pays comparables (différenciation des produits, qualité des produits, et fragmentation de la chaîne de valeur).</p>
+  <p>- Comprendre que la productivité des firmes sous-tend la compétitivité d’un pays, c’est-à-dire son aptitude à exporter.</p>
+  <p>- Comprendre l’internationalisation de la chaîne de valeur et savoir l’illustrer.</p>
+  <p>- Comprendre les effets induits par le commerce international : gains moyens en termes de baisse de prix, réduction des inégalités entre pays, accroissement des inégalités de revenus au sein de chaque pays ; comprendre les termes du débat entre libre-échange et protectionnisme.</p>
+</div>
+
+  <h2 class="section-title">Les documents pour vous aider à réviser</h2>
+
+  <div class="cards-container">
+    <div class="card">
+      <div class="card-number">1</div>
+      <h3>L'auto-évaluation</h3>
+      <p>Cette fiche d'auto-évaluation vous permettra de vérifier vos connaissances et de travailler sur les éléments qui ne sont pas maîtrisés.</p>
+      <a href="https://raw.githubusercontent.com/LESCOURSDALICE/classe/c24a66375f0631a85622e51bb253d5b81b142978/T.E2.%20OA..docx" class="card-button">Auto-évaluation</a>
+    </div>
+
+    <div class="card">
+      <div class="card-number">2</div>
+      <h3>Les définitions</h3>
+      <p>Vous retrouverez ici l'ensemble des notions qu'il faudra connaître pour cette séquence.</p>
+      <a href="https://lescoursdalice.github.io/classe/T.E2.%20Def.pdf" class="card-button">Définitions</a>
+    </div>
+
+    <div class="card">
+      <div class="card-number">3</div>
+      <h3>Les schémas</h3>
+      <p>Ces schémas vous permettront d'avoir une vue d'ensemble sur le chapitre et de résumer les objectifs d'apprentissages.</p>
+      <a href="https://lescoursdalice.github.io/classe/T.E2.%20Schéma.pdf" class="card-button">Les schémas</a>
+    </div>
+  </div>
+
+  <div class="bac-section">
+    <h2>SUJETS TYPE BAC</h2>
+    <p>Entraînez-vous en préparant les sujets susceptibles d'être posés au bac. Préparez les plans ainsi que les arguments pour être préparé au mieux.</p>
+    <a href="https://lescoursdalice.github.io/classe/T.E2.%20Sujet.pdf" class="bac-button">Sujets</a>
+  </div>
+
+  <section class="contact">
+    <h2>Une question ? Écrivez-moi</h2>
+    <a href="mailto:auxcourspietrini@outlook.com">auxcourspietrini@outlook.com</a>
+  </section>
+
+  <footer class="footer">
+    <div class="bottom">
+      © 2025 AUX COURS PIETRINI — Tous droits réservés.
+    </div>
+  </footer>
+
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("show");
+        } else {
+          entry.target.classList.remove("show");
+        }
+      });
+    }, { threshold: 0.2 });
+
+    document.querySelectorAll(".main-title, .objectives, .section-title, .cards-container, .bac-section, .contact, .footer").forEach(el => observer.observe(el));
+
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        document.querySelector('.main-title').classList.add('show');
+      }, 500);
+    });
+  </script>
+</body>
+</html>

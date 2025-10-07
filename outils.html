@@ -1,0 +1,474 @@
+<!DOCTYPE html> 
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="https://i.ibb.co/HfV1xJDW/Design-sans-titre-3.png" type="image/png">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+  <title>Outils - AUX COURS PIETRINI</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Bebas Neue', sans-serif;
+      background: #f5f5f5;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    .header {
+      width: 100%;
+      background: #fff;
+      padding: 25px 70px; 
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 999;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+    }
+
+    .nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 40px; 
+      font-weight: bold;
+      color: #222;
+      text-decoration: none;
+      letter-spacing: 3px;
+    }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 50px;
+      background: #f8f8f8;
+      padding: 20px 45px;
+      border-radius: 50px;
+      box-shadow: inset 0 2px 6px rgba(0,0,0,0.15), 0 4px 12px rgba(0,0,0,0.1);
+      border: 3px solid #333;
+    }
+
+    .nav-links li {
+      position: relative;
+    }
+
+    .nav-links li::after {
+      content: '';
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      height: 25px;
+      background: transparent;
+      display: none;
+    }
+
+    .nav-links li:hover::after {
+      display: block;
+    }
+
+    .nav-links li a {
+      color: #333;
+      text-decoration: none;
+      font-size: 24px; 
+      transition: color 0.3s ease;
+    }
+
+    .nav-links li a:hover {
+      color: #007BFF; 
+    }
+
+    .dropdown-menu {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      margin-top: -5px;
+      padding-top: 25px;
+      min-width: 380px;
+      z-index: 1000;
+    }
+
+    .dropdown-content {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+      max-height: 350px;
+      overflow-y: auto;
+      padding: 10px 0;
+    }
+
+    .nav-links li:hover .dropdown-menu,
+    .dropdown-menu:hover {
+      display: block;
+    }
+
+    .dropdown-menu a {
+      display: block;
+      padding: 12px 25px;
+      font-size: 18px;
+      color: #333;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      border-left: 3px solid transparent;
+      background: #fff;
+    }
+
+    .dropdown-menu a:first-child {
+      border-radius: 12px 12px 0 0;
+    }
+
+    .dropdown-menu a:last-child {
+      border-radius: 0 0 12px 12px;
+    }
+
+    .dropdown-menu a:hover {
+      background: #f8f8f8;
+      color: #007BFF;
+      border-left-color: #007BFF;
+      padding-left: 30px;
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+    }
+
+    .search-container {
+      position: relative;
+      display: flex;
+      align-items: center;
+      background: #f0f0f0;
+      border-radius: 40px;
+      padding: 16px 18px;
+      border: 3px solid #333;
+      margin-left: 30px;
+    }
+
+    .search-icon {
+      flex-shrink: 0;
+      fill: #666;
+    }
+
+    #search-input {
+      background: transparent;
+      border: none;
+      outline: none;
+      color: #333;
+      padding-left: 12px;
+      font-size: 18px;
+      width: 260px;
+    }
+
+    #search-input::placeholder {
+      color: #888;
+    }
+
+    .suggestions {
+      position: absolute;
+      top: 50px;
+      left: 0;
+      background: #fff;
+      width: 100%;
+      max-height: 250px;
+      overflow-y: auto;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      display: none;
+    }
+
+    .suggestions div {
+      padding: 14px;
+      cursor: pointer;
+      font-size: 18px;
+    }
+
+    .suggestions div:hover {
+      background: #f0f0f0;
+    }
+
+    .logo img {
+      height: 90px;   
+      width: auto;    
+      display: block;
+    }
+
+    .main-title {
+      text-align: center;
+      margin-top: 180px; 
+      font-size: 60px;
+      letter-spacing: 4px;
+      color: #111;
+      opacity: 0;
+      transform: translateY(50px);
+      transition: opacity 1s ease, transform 1s ease;
+    }
+
+    .main-title.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .section {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 50px;
+      margin: 80px auto;
+      max-width: 1100px;
+      padding: 20px;
+      opacity: 0;
+      transform: translateY(80px);
+      transition: opacity 1s ease, transform 1s ease;
+    }
+
+    .section.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .section img {
+      width: 45%;
+      height: 400px;
+      object-fit: cover;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+    }
+
+    .section-text {
+      width: 50%;
+      font-size: 22px;
+      text-align: justify;
+    }
+
+    .buttons-container {
+      max-width: 1100px;
+      margin: 80px auto;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      opacity: 0;
+      transform: translateY(80px);
+      transition: opacity 1s ease, transform 1s ease;
+    }
+
+    .buttons-container.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .tool-button {
+      background: linear-gradient(135deg, #28a745 0%, #1e7e34 100%);
+      color: #fff;
+      padding: 20px 40px;
+      font-size: 24px;
+      text-decoration: none;
+      border-radius: 12px;
+      text-align: center;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(40,167,69,0.3);
+      border: 3px solid transparent;
+      display: block;
+    }
+
+    .tool-button:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(40,167,69,0.5);
+      border-color: #fff;
+      background: linear-gradient(135deg, #1e7e34 0%, #155724 100%);
+    }
+
+    .contact {
+      text-align: center;
+      margin: 100px 0;
+      opacity: 0;
+      transform: translateY(80px);
+      transition: opacity 1s ease, transform 1s ease;
+    }
+
+    .contact.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .contact h2 {
+      font-size: 36px;
+      margin-bottom: 20px;
+    }
+
+    .contact a {
+      font-size: 24px;
+      color: #007BFF;
+      text-decoration: none;
+    }
+
+    .contact a:hover {
+      text-decoration: underline;
+    }
+
+    .footer {
+      background: #222;
+      color: #fff;
+      padding: 60px 40px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 40px;
+      opacity: 0;
+      transform: translateY(80px);
+      transition: opacity 1s ease, transform 1s ease;
+    }
+
+    .footer.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .footer h3 {
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+
+    .footer ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .footer ul li {
+      margin-bottom: 12px;
+    }
+
+    .footer ul li a {
+      color: #bbb;
+      text-decoration: none;
+      font-size: 18px;
+    }
+
+    .footer ul li a:hover {
+      color: #fff;
+    }
+
+    .footer .bottom {
+      grid-column: 1/-1;
+      text-align: center;
+      margin-top: 40px;
+      font-size: 16px;
+      color: #aaa;
+    }
+  </style>
+</head>
+<body>
+
+  <header class="header" id="header">
+    <nav class="nav">
+      <a href="https://lescoursdalice.github.io/classe" class="logo">
+        <img src="https://static.wixstatic.com/media/8fe01d_0335a2e73f204073b35229a92d751359~mv2.png/v1/crop/x_0,y_203,w_1024,h_617/fill/w_198,h_114,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/ChatGPT%20Image%203%20avr_%202025%20%C3%A0%2022_06_52.png" 
+             alt="Logo">
+      </a>
+      <ul class="nav-links">
+        <li><a href="https://lescoursdalice.github.io/classe">Accueil</a></li>
+        <li><a href="#seconde">Seconde</a></li>
+        <li><a href="#premiere">Première</a></li>
+        <li>
+          <a href="https://lescoursdalice.github.io/classe/terminale">Terminale</a>
+          <div class="dropdown-menu">
+            <div class="dropdown-content">
+              <a href="https://lescoursdalice.github.io/classe/term-e1">Chapitre E1 : Croissance économique</a>
+              <a href="https://lescoursdalice.github.io/classe/term-e2">Chapitre E2 : Commerce international</a>
+              <a href="https://lescoursdalice.github.io/classe/term-e3">Chapitre E3 : Lutter contre le chômage</a>
+              <a href="https://lescoursdalice.github.io/classe/term-e4">Chapitre E4 : Crises financières</a>
+              <a href="https://lescoursdalice.github.io/classe/term-e5">Chapitre E5 : Politiques européennes</a>
+              <a href="https://lescoursdalice.github.io/classe/term-s1">Chapitre S1 : Structure sociale</a>
+            </div>
+          </div>
+        </li>
+        <li>
+          <a href="https://lescoursdalice.github.io/classe/outils">Outils</a>
+          <div class="dropdown-menu">
+            <div class="dropdown-content">
+              <a href="#pourcentage-repartition">Pourcentage de répartition</a>
+              <a href="#coefficient-multiplicateur">Coefficient multiplicateur</a>
+              <a href="#taux-variation">Taux de variation</a>
+              <a href="#differences-point-pourcentage">Différences en point de pourcentage</a>
+              <a href="#valeur-nominale-reelle">Valeur nominale/réelle</a>
+              <a href="#mediane-quantile">Médiane et quantile</a>
+              <a href="#epreuve-composee">Épreuve composée</a>
+              <a href="#dissertation">Dissertation</a>
+              <a href="#grand-oral">Grand oral</a>
+            </div>
+          </div>
+        </li>
+      </ul>
+      <div class="nav-right">
+        <div class="search-container">
+          <svg xmlns="http://www.w3.org/2000/svg" class="search-icon" width="22" height="22" fill="white" viewBox="0 0 24 24">
+            <path d="M21.53 20.47l-4.7-4.7a8 8 0 10-1.06 1.06l4.7 4.7a.75.75 0 101.06-1.06zM4 10a6 6 0 1112 0A6 6 0 014 10z"/>
+          </svg>
+          <input type="text" id="search-input" placeholder="Rechercher..." autocomplete="off" />
+          <div class="suggestions" id="suggestions"></div>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <h1 class="main-title">Les outils des Sciences Économiques et Sociales</h1>
+
+  <section class="section">
+    <img src="https://edx.univ-reunion.fr/asset-v1:UR+DISSERT01+2020_T1+type@asset+block@AdobeStock_113507111.jpeg" alt="Outils illustration">
+    <div class="section-text">
+      Vous retrouverez ici les outils statistiques mais aussi les méthodologies des épreuves du baccalauréat.
+    </div>
+  </section>
+
+  <div class="buttons-container">
+    <a href="#pourcentage-repartition" class="tool-button">Pourcentage de répartition</a>
+    <a href="#coefficient-multiplicateur" class="tool-button">Coefficient multiplicateur</a>
+    <a href="#taux-variation" class="tool-button">Taux de variation</a>
+    <a href="#differences-point-pourcentage" class="tool-button">Différences en point de pourcentage</a>
+    <a href="#valeur-nominale-reelle" class="tool-button">Valeur nominale/réelle</a>
+    <a href="#mediane-quantile" class="tool-button">Médiane et quantile</a>
+    <a href="#epreuve-composee" class="tool-button">Épreuve composée</a>
+    <a href="#dissertation" class="tool-button">Dissertation</a>
+    <a href="#grand-oral" class="tool-button">Grand oral</a>
+  </div>
+
+  <section class="contact">
+    <h2>Une question ? Écrivez-moi</h2>
+    <a href="mailto:auxcourspietrini@outlook.com">auxcourspietrini@outlook.com</a>
+  </section>
+
+  <footer class="footer">
+    <div class="bottom">
+      © 2025 AUX COURS PIETRINI — Tous droits réservés.
+    </div>
+  </footer>
+
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("show");
+        } else {
+          entry.target.classList.remove("show");
+        }
+      });
+    }, { threshold: 0.2 });
+
+    document.querySelectorAll(".section, .buttons-container, .contact, .footer, .main-title").forEach(el => observer.observe(el));
+
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        document.querySelector('.main-title').classList.add('show');
+      }, 500);
+    });
+  </script>
+</body>
+</html>
