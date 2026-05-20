@@ -931,15 +931,16 @@ async function analyzeChart() {
 
   try {
     // Puter.js: on envoie image + texte via chat avec claude-sonnet
-    const dataUrl = `data:${imageMediaType};base64,${imageBase64}`;
-
     const response = await puter.ai.chat(
       [
         { role: "system", content: systemPrompt },
         {
           role: "user",
           content: [
-            { type: "image_url", image_url: { url: dataUrl } },
+            {
+              type: "image",
+              source: { type: "base64", media_type: imageMediaType, data: imageBase64 }
+            },
             { type: "text", text: userContent }
           ]
         }
