@@ -948,17 +948,23 @@ async function analyzeChart() {
       { model: "claude-sonnet-4-5", max_tokens: 1000 }
     );
 
+    console.log("Puter raw response:", JSON.stringify(response, null, 2));
+
     const raw = typeof response === "string" ? response
               : response?.message?.content?.[0]?.text
               || response?.content?.[0]?.text
+              || response?.text
+              || (Array.isArray(response) ? response.map(b => b?.text || "").join("") : null)
               || String(response);
+
+    console.log("Raw text extracted:", raw);
 
     let parsed;
     try {
       const clean = raw.replace(/```json|```/g, "").trim();
       parsed = JSON.parse(clean);
     } catch {
-      throw new Error("Réponse JSON invalide. Réessaie.");
+      throw new Error("JSON invalide. Réponse brute : " + raw.substring(0, 300));
     }
 
     renderResults(parsed);
